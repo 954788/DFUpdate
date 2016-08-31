@@ -217,6 +217,8 @@
     }if (buttonIndex == 0 && _isNoMore) {
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:_newVersion forKey:@"cacheVersion"];
+        
+        [userDefaults synchronize];
     }
 }
 
