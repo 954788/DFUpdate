@@ -102,9 +102,11 @@
     
         NSURLSessionDataTask *sessionTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
     
-            if (!error) {
+            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            
+            if (error == nil && dic!=nil) {
                 // 调用成功
-                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+
                 
                 // 从appStore获取到所有信息
                 NSDictionary *imgDic = dic[@"results"][0];
