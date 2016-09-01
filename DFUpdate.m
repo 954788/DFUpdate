@@ -39,7 +39,7 @@
     // 是否显示更新内容
     _isShowContent = isShowContent;
     
-#warning 根据不同的app去修改Id的值
+    // 根据不同的app去修改Id的值
     _appId = @"1137081115";
     
     // 是否在下个更新版本发布前不再显示
