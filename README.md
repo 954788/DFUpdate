@@ -13,3 +13,16 @@
 `noMore`
 负责控制是否使用不再显示的方式(忽略当前版本，当下一个新版本发布后，会提示更新)
 
+# 通过cocoaPod导入
+`pod 'DFUpdate'`即可使用
+
+Podfile例子如下
+```
+platform :ios, '7.0'
+target "XXX"   do
+
+pod 'DFUpdate'
+
+end
+```
+
