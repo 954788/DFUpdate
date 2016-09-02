@@ -101,25 +101,29 @@
         __weak typeof(DFUpdate) *weakSelf = self;
     
         NSURLSessionDataTask *sessionTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-    
-            NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
-            if (error == nil && dic!=nil) {
-                // 调用成功
-
+            
+            if (error == nil) {
                 
-                // 从appStore获取到所有信息
-                NSDictionary *imgDic = dic[@"results"][0];
+                NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
                 
-                [weakSelf manageDictionary:imgDic];
+                if (dic !=nil) {
+                    // 调用成功
+                    
+                    // 从appStore获取到所有信息
+                    NSDictionary *imgDic = dic[@"results"][0];
+                    
+                    [weakSelf manageDictionary:imgDic];
+                }
+                
             }else{
                 // 调用失败
             }
-
-    
-            }];
             
-                [sessionTask resume];
+            
+        }];
+    
+    [sessionTask resume];
     
 }
 
