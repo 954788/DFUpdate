@@ -130,16 +130,13 @@
 #pragma mark - 处理返回的数据
 - (void)manageDictionary:(NSDictionary *)imgDic{
     
-    // 提示框title
-    NSString *title = @"版本有更新";
-    
     // 更新按钮的文案
-    NSString *updateButtonTitle = @"更新";
+    NSString *updateButtonTitle = @"立即更新";
     
     // 取消按钮的文案
     NSString *cancleButtonTitle;
     if (_isNoMore) {
-        cancleButtonTitle = @"不再显示";
+        cancleButtonTitle = @"下次再说";
     }else{
         cancleButtonTitle = @"取消";
     }
@@ -151,6 +148,9 @@
     // appStore 版本号
     NSString *newVersion = imgDic[@"version"];
     
+    // 提示框title
+    NSString *title = [NSString stringWithFormat:@"%@新版上线",newVersion];
+    
     // 是否不再显示
     if (_isNoMore) {
         _newVersion = newVersion;
@@ -159,19 +159,27 @@
         
         if ([cacheVersion isKindOfClass:[NSNull class]]||cacheVersion.length<=0) {
             // 第一次执行
-
+            
         }else if([cacheVersion isEqualToString:newVersion]){
             // 已获取过信息 并且没有新版本发布
             
             return;
         }else{
             // 已获取过信息 有新版本发布
-
+            
         }
     }
-
+    
     // appStore 更新内容
     NSString *releaseNotes = imgDic[@"releaseNotes"];
+    
+    if ([releaseNotes rangeOfString:@"近期更新"].location != NSNotFound) {
+        NSArray *array = [releaseNotes componentsSeparatedByString:@"近期更新"];
+        
+        releaseNotes = array[0];
+        
+        releaseNotes =  [releaseNotes stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    }
     
     // 当前手机系统版本
     NSString *systemVersion = [UIDevice currentDevice].systemVersion;
@@ -185,8 +193,12 @@
         return ;
     }
     
-    // 如果当前app版本等于appStore最新版本 不显示更新
-    if (![nowVersion isEqualToString:newVersion]) {
+    if (newVersion == nil || [newVersion isEqualToString:@""]) {
+        return ;
+    }
+    
+    // 如果当前app版本小于appStore最新版本 显示更新
+    if ([nowVersion compare:newVersion options:NSNumericSearch]== NSOrderedAscending) {
         
         if (_isShowContent) {
             // 显示内容
