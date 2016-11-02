@@ -40,7 +40,9 @@
     _isShowContent = isShowContent;
     
     // 根据不同的app去修改Id的值
-    _appId = @"1137081115";
+    _appId = @"451108668";
+    //160328100
+    //1057797116
     
     // 是否在下个更新版本发布前不再显示
     _isNoMore = isNoMore;
@@ -73,16 +75,21 @@
 //    [manager GET:urlString parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nonnull responseObject) {
 //        
 //        // 从appStore获取到所有信息
-//        NSDictionary *imgDic = responseObject[@"results"][0];
+//        NSArray *resultArray = responseObject[@"results"];
 //        
-//        [weakSelf manageDictionary:imgDic];
+//        if (resultArray.count>0) {
+//            NSDictionary *imgDic = resultArray[0];
+//            
+//            [weakSelf manageDictionary:imgDic];
+//        }
+//
 //        
 //    } failure:^(NSURLSessionDataTask * _Nonnull task, NSError * _Nonnull error) {
 //        
 //        NSLog(@"网络异常");
 //        
 //    }];
-    
+//    
 }
 
 #pragma mark - 通过NSURLSession获取app相关信息
@@ -111,9 +118,15 @@
                     // 调用成功
                     
                     // 从appStore获取到所有信息
-                    NSDictionary *imgDic = dic[@"results"][0];
+                    NSArray *resultArray = dic[@"results"];
                     
-                    [weakSelf manageDictionary:imgDic];
+                    if (resultArray.count>0) {
+                        NSDictionary *imgDic = resultArray[0];
+                        
+                         [weakSelf manageDictionary:imgDic];
+                    }
+                    
+                   
                 }
                 
             }else{
