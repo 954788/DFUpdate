@@ -1,4 +1,4 @@
-# DFUpdate
+# DFUpdate v1.1.0
 简单方便的更新提醒
 简书地址:http://www.jianshu.com/p/d088a8f6ab48
 
